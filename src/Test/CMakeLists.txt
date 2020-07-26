@@ -1,4 +1,7 @@
 Xi_getTargetNameRel(CAMERA_NAME Camera)
+Xi_getTargetNameRel(TEX_NAME Texture)
+Xi_getTargetNameRel(PRO_NAME Program)
+Xi_getTargetNameRel(OBJ_NAME Object)
 Xi_getTargetNameRel(GLAD_NAME libraries/GLAD)
 Xi_getTargetNameRel(STB_IMAGE_NAME libraries/stb_image)
-Xi_addTarget(MODE EXE LIBS opengl32 glfw3dll ${GLAD_NAME} ${STB_IMAGE_NAME} ${CAMERA_NAME})
+Xi_addTarget(MODE EXE LIBS opengl32 glfw3dll ${GLAD_NAME} ${STB_IMAGE_NAME} ${CAMERA_NAME} ${TEX_NAME} ${PRO_NAME} ${OBJ_NAME})

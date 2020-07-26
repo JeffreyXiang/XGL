@@ -68,7 +68,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator-()
+	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator-() const
 	{
 		Matrix<T, rows, columns, major> res;
 		for (size_t i = 0; i < rows * columns; i++)
@@ -79,7 +79,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator+(const Matrix<T, rows, columns, major>& rOpnt)
+	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator+(const Matrix<T, rows, columns, major>& rOpnt) const
 	{
 		Matrix<T, rows, columns, major> res;
 		for (size_t i = 0; i < rows * columns; i++)
@@ -100,7 +100,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator-(const Matrix<T, rows, columns, major>& rOpnt)
+	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator-(const Matrix<T, rows, columns, major>& rOpnt) const
 	{
 		Matrix<T, rows, columns, major> res;
 		for (size_t i = 0; i < rows * columns; i++)
@@ -122,7 +122,7 @@ namespace XGL
 
 	template<typename T, int rows, int columns, bool major>
 	template<int rOpntColumns>
-	Matrix<T, rows, rOpntColumns, major> IMatrix<T, rows, columns, major>::operator*(const Matrix<T, columns, rOpntColumns, major>& rOpnt)
+	Matrix<T, rows, rOpntColumns, major> IMatrix<T, rows, columns, major>::operator*(const Matrix<T, columns, rOpntColumns, major>& rOpnt) const
 	{
 		Matrix<T, rows, rOpntColumns, major> res;
 		for (size_t i = 0; i < rows; i++)
@@ -139,7 +139,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator+(T rOpnt)
+	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator+(T rOpnt) const
 	{
 		Matrix<T, rows, columns, major> res;
 		for (size_t i = 0; i < rows * columns; i++)
@@ -165,7 +165,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator-(T rOpnt)
+	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator-(T rOpnt) const
 	{
 		Matrix<T, rows, columns, major> res;
 		for (size_t i = 0; i < rows * columns; i++)
@@ -191,7 +191,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator*(T rOpnt)
+	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator*(T rOpnt) const
 	{
 		Matrix<T, rows, columns, major> res;
 		for (size_t i = 0; i < rows * columns; i++)
@@ -217,7 +217,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator/(T rOpnt)
+	Matrix<T, rows, columns, major> IMatrix<T, rows, columns, major>::operator/(T rOpnt) const
 	{
 		if (rOpnt == 0)
 		{
@@ -270,7 +270,7 @@ namespace XGL
 	}
 
 	template<typename T, int rows, int columns, bool major>
-	Matrix<T, columns, rows, major> IMatrix<T, rows, columns, major>::transpose()
+	Matrix<T, columns, rows, major> IMatrix<T, rows, columns, major>::transpose() const
 	{
 		Matrix<T, columns, rows, major> res;
 		for (size_t i = 0; i < rows; i++)

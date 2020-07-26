@@ -54,7 +54,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	T& IVector<T, size>::operator[](size_t idx)
+	T& IVector<T, size>::operator[](size_t idx) const
 	{
 		if (idx < 0 || idx >= size)
 		{
@@ -65,7 +65,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	T& IVector<T, size>::operator()(size_t idx)
+	T& IVector<T, size>::operator()(size_t idx) const
 	{
 		if (idx < 0 || idx >= size)
 		{
@@ -76,7 +76,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator-()
+	Vector<T, size> IVector<T, size>::operator-() const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -85,7 +85,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator+(const Vector<T, size>& rOpnt)
+	Vector<T, size> IVector<T, size>::operator+(const Vector<T, size>& rOpnt) const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -102,7 +102,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator-(const Vector<T, size>& rOpnt)
+	Vector<T, size> IVector<T, size>::operator-(const Vector<T, size>& rOpnt) const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -119,7 +119,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator*(const Vector<T, size>& rOpnt)
+	Vector<T, size> IVector<T, size>::operator*(const Vector<T, size>& rOpnt) const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -136,7 +136,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator/(const Vector<T, size>& rOpnt)
+	Vector<T, size> IVector<T, size>::operator/(const Vector<T, size>& rOpnt) const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -167,7 +167,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator+(T rOpnt)
+	Vector<T, size> IVector<T, size>::operator+(T rOpnt) const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -193,7 +193,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator-(T rOpnt)
+	Vector<T, size> IVector<T, size>::operator-(T rOpnt) const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -219,7 +219,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator*(T rOpnt)
+	Vector<T, size> IVector<T, size>::operator*(T rOpnt) const
 	{
 		Vector<T, size> res;
 		for (size_t i = 0; i < size; i++)
@@ -245,7 +245,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::operator/(T rOpnt)
+	Vector<T, size> IVector<T, size>::operator/(T rOpnt) const
 	{
 		if (rOpnt == 0)
 		{
@@ -288,7 +288,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	bool IVector<T, size>::operator==(const Vector<T, size>& rOpnt)
+	bool IVector<T, size>::operator==(const Vector<T, size>& rOpnt) const
 	{
 		for (size_t i = 0; i < size; i++)
 			if (data[i] != rOpnt.data[i])
@@ -297,7 +297,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	bool IVector<T, size>::operator!=(const Vector<T, size>& rOpnt)
+	bool IVector<T, size>::operator!=(const Vector<T, size>& rOpnt) const
 	{
 		return !((*this) == rOpnt);
 	}
@@ -312,7 +312,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	T IVector<T, size>::dot(const Vector<T, size>& rOpnt)
+	T IVector<T, size>::dot(const Vector<T, size>& rOpnt) const
 	{
 		T res = 0;
 		for (size_t i = 0; i < size; i++)
@@ -327,9 +327,9 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	T IVector<T, size>::norm2()
+	T IVector<T, size>::norm2() const
 	{
-		return dot(*static_cast<Vector<T, size>*>(this));
+		return dot(*static_cast<const Vector<T, size>*>(this));
 	}
 
 	template<typename T, int size>
@@ -339,7 +339,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	T IVector<T, size>::norm()
+	T IVector<T, size>::norm() const
 	{
 		return sqrt(norm2());
 	}
@@ -357,7 +357,7 @@ namespace XGL
 	}
 
 	template<typename T, int size>
-	Vector<T, size> IVector<T, size>::normalize()
+	Vector<T, size> IVector<T, size>::normalize() const
 	{
 		T len = norm();
 		if (len == 0)
@@ -399,7 +399,7 @@ namespace XGL
 	}
 
 	template<typename T>
-	Vector<T, 3> Vector<T, 3>::cross(const Vector<T, 3>& rOpnt)
+	Vector<T, 3> Vector<T, 3>::cross(const Vector<T, 3>& rOpnt) const
 	{
 		Vector<T, 3> res;
 		res.data[0] = this->data[1] * rOpnt.data[2] - this->data[2] * rOpnt.data[1];

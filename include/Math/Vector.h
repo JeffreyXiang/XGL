@@ -26,61 +26,61 @@ namespace XGL
 			Vector<T, size>& operator=(const IVector<T, size>& rOpnt);
 			Vector<T, size>& operator=(IVector<T, size>&& rOpnt);
 
-			T& operator[](size_t idx);
-			T& operator()(size_t idx);
+			T& operator[](size_t idx) const;
+			T& operator()(size_t idx) const;
 
-			Vector<T, size> operator-();
+			Vector<T, size> operator-() const;
 
-			Vector<T, size> operator+(const Vector<T, size>& rOpnt);
+			Vector<T, size> operator+(const Vector<T, size>& rOpnt) const;
 			Vector<T, size>& operator+=(const Vector<T, size>& rOpnt);
 
-			Vector<T, size> operator-(const Vector<T, size>& rOpnt);
+			Vector<T, size> operator-(const Vector<T, size>& rOpnt) const;
 			Vector<T, size>& operator-=(const Vector<T, size>& rOpnt);
 
-			Vector<T, size> operator*(const Vector<T, size>& rOpnt);
+			Vector<T, size> operator*(const Vector<T, size>& rOpnt) const;
 			Vector<T, size>& operator*=(const Vector<T, size>& rOpnt);
 
-			Vector<T, size> operator/(const Vector<T, size>& rOpnt);
+			Vector<T, size> operator/(const Vector<T, size>& rOpnt) const;
 			Vector<T, size>& operator/=(const Vector<T, size>& rOpnt);
 
-			Vector<T, size> operator+(T rOpnt);
+			Vector<T, size> operator+(T rOpnt) const;
 			template<typename T, int size>
 			friend Vector<T, size> operator+(T lOpnt, const Vector<T, size>& rOpnt);
 			Vector<T, size>& operator+=(T rOpnt);
 
-			Vector<T, size> operator-(T rOpnt);
+			Vector<T, size> operator-(T rOpnt) const;
 			template<typename T, int size>
 			friend Vector<T, size> operator-(T lOpnt, const Vector<T, size>& rOpnt);
 			Vector<T, size>& operator-=(T rOpnt);
 
-			Vector<T, size> operator*(T rOpnt);
+			Vector<T, size> operator*(T rOpnt) const;
 			template<typename T, int size>
 			friend Vector<T, size> operator*(T lOpnt, const Vector<T, size>& rOpnt);
 			Vector<T, size>& operator*=(T rOpnt);
 
-			Vector<T, size> operator/(T rOpnt);
+			Vector<T, size> operator/(T rOpnt) const;
 			template<typename T, int size>
 			friend Vector<T, size> operator/(T lOpnt, const Vector<T, size>& rOpnt);
 			Vector<T, size>& operator/=(T rOpnt);
 
-			bool operator==(const Vector<T, size>& rOpnt);
-			bool operator!=(const Vector<T, size>& rOpnt);
+			bool operator==(const Vector<T, size>& rOpnt) const;
+			bool operator!=(const Vector<T, size>& rOpnt) const;
 
 			static T dot(const Vector<T, size>& lOpnt, const Vector<T, size>& rOpnt);
-			T dot(const Vector<T, size>& rOpnt);
+			T dot(const Vector<T, size>& rOpnt) const;
 
 			static T norm2(const Vector<T, size>& Opnt);
-			T norm2();
+			T norm2() const;
 
 			static T norm(const Vector<T, size>& Opnt);
-			T norm();
+			T norm() const;
 
 			static Vector<T, size> normalize(const Vector<T, size>& Opnt);
-			Vector<T, size> normalize();
+			Vector<T, size> normalize() const;
 
 			Vector<T, size>& fill(T elem);
 
-			T* rawData() { return data; }
+			T* getData() const { return data; }
 
 			template<typename T, int size>
 			friend std::ostream& operator<<(std::ostream& output, const Vector<T, size>& rOpnt);
@@ -100,8 +100,8 @@ namespace XGL
 			using IVector<T, 2>::IVector;
 			Vector(T x, T y) { this->data[0] = x; this->data[1] = y; }
 
-			T& x() { return this->data[0]; }
-			T& y() { return this->data[1]; }
+			T& x() const { return this->data[0]; }
+			T& y() const { return this->data[1]; }
 	};
 
 	template<typename T>
@@ -114,11 +114,11 @@ namespace XGL
 			Vector(T x, Vector<T, 2> yz) { this->data[0] = x; this->data[1] = yz[0]; this->data[2] = yz[1]; }
 
 			static Vector<T, 3> cross(const Vector<T, 3>& lOpnt, const Vector<T, 3>& rOpnt);
-			Vector<T, 3> cross(const Vector<T, 3>& rOpnt);
+			Vector<T, 3> cross(const Vector<T, 3>& rOpnt) const;
 
-			T& x() { return this->data[0]; }
-			T& y() { return this->data[1]; }
-			T& z() { return this->data[2]; }
+			T& x() const { return this->data[0]; }
+			T& y() const { return this->data[1]; }
+			T& z() const { return this->data[2]; }
 	};
 
 	template<typename T>
@@ -133,10 +133,10 @@ namespace XGL
 			Vector(T x, Vector<T, 2> yz, T w) { this->data[0] = x; this->data[1] = yz[0]; this->data[2] = yz[1]; this->data[3] = w; }
 			Vector(T x, T y, Vector<T, 2> zw) { this->data[0] = x; this->data[1] = y; this->data[2] = zw.ta[0]; this->data[3] = zw[1]; }
 
-			T& x() { return this->data[0]; }
-			T& y() { return this->data[1]; }
-			T& z() { return this->data[2]; }
-			T& w() { return this->data[3]; }
+			T& x() const { return this->data[0]; }
+			T& y() const { return this->data[1]; }
+			T& z() const { return this->data[2]; }
+			T& w() const { return this->data[3]; }
 	};
 
 	using Vec2 = Vector<float, 2>;

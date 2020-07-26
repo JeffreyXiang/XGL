@@ -28,44 +28,45 @@ namespace XGL
 
 			T& operator()(size_t rowIdx, size_t colIdx) const;
 
-			Matrix<T, rows, columns, major> operator-();
+			Matrix<T, rows, columns, major> operator-() const;
 
-			Matrix<T, rows, columns, major> operator+(const Matrix<T, rows, columns, major>& rOpnt);
+			Matrix<T, rows, columns, major> operator+(const Matrix<T, rows, columns, major>& rOpnt) const;
 			Matrix<T, rows, columns, major>& operator+=(const Matrix<T, rows, columns, major>& rOpnt);
 
-			Matrix<T, rows, columns, major> operator-(const Matrix<T, rows, columns, major>& rOpnt);
+			Matrix<T, rows, columns, major> operator-(const Matrix<T, rows, columns, major>& rOpnt) const;
 			Matrix<T, rows, columns, major>& operator-=(const Matrix<T, rows, columns, major>& rOpnt);
 
 			template<int rOpntColumns>
-			Matrix<T, rows, rOpntColumns, major> operator*(const Matrix<T, columns, rOpntColumns, major>& rOpnt);
+			Matrix<T, rows, rOpntColumns, major> operator*(const Matrix<T, columns, rOpntColumns, major>& rOpnt) const;
 
 			template<bool tarMajor, typename T, int rows, int columns, bool major>
 			friend Matrix<T, rows, columns, tarMajor> matrix_major_cast(Matrix<T, rows, columns, major>& src);
 
-			Matrix<T, rows, columns, major> operator+(T rOpnt);
+			Matrix<T, rows, columns, major> operator+(T rOpnt) const;
 			template<typename T, int rows, int columns, bool major>
 			friend Matrix<T, rows, columns, major> operator+(T lOpnt, const Matrix<T, rows, columns, major>& rOpnt);
 			Matrix<T, rows, columns, major>& operator+=(T rOpnt);
 
-			Matrix<T, rows, columns, major> operator-(T rOpnt);
+			Matrix<T, rows, columns, major> operator-(T rOpnt) const;
 			template<typename T, int rows, int columns, bool major>
 			friend Matrix<T, rows, columns, major> operator-(T lOpnt, const Matrix<T, rows, columns, major>& rOpnt);
 			Matrix<T, rows, columns, major>& operator-=(T rOpnt);
 
-			Matrix<T, rows, columns, major> operator*(T rOpnt);
+			Matrix<T, rows, columns, major> operator*(T rOpnt) const;
 			template<typename T, int rows, int columns, bool major>
 			friend Matrix<T, rows, columns, major> operator*(T lOpnt, const Matrix<T, rows, columns, major>& rOpnt);
 			Matrix<T, rows, columns, major>& operator*=(T rOpnt);
 
-			Matrix<T, rows, columns, major> operator/(T rOpnt);
+			Matrix<T, rows, columns, major> operator/(T rOpnt) const;
 			template<typename T, int rows, int columns, bool major>
 			friend Matrix<T, rows, columns, major> operator/(T lOpnt, const Matrix<T, rows, columns, major>& rOpnt);
 			Matrix<T, rows, columns, major>& operator/=(T rOpnt);
 
 			static Matrix<T, columns, rows, major> transpose(const Matrix<T, rows, columns, major>& Opnt);
-			Matrix<T, columns, rows, major> transpose();
+			Matrix<T, columns, rows, major> transpose() const;
 
-			T* rawData() { return data; }
+			T* getData() const { return data; }
+			bool getMajor() const { return major; }
 
 			template<typename T, int rows, int columns, bool major>
 			friend std::ostream& operator<<(std::ostream& output, const Matrix<T, rows, columns, major>& rOpnt);
@@ -74,8 +75,8 @@ namespace XGL
 	template<typename T, int rows, int columns, bool major>
 	class Matrix : public IMatrix<T, rows, columns, major>
 	{
-	public:
-		using IMatrix<T, rows, columns, major>::IMatrix;
+		public:
+			using IMatrix<T, rows, columns, major>::IMatrix;
 	};
 
 	template<typename T, int size, bool major>

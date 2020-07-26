@@ -9,6 +9,9 @@ namespace XGL
 {
 	class Camera
 	{
+		public:
+			enum ERROR { INVALID_SET_VALUE };
+
 		private:
 			// --- position ---
 			Vec3 position;
@@ -58,6 +61,7 @@ namespace XGL
 			void setPosition(Vec3 pos);
 			void setEuler(float yaw, float pitch, float roll = 0);
 			void setLen(float fov, float aspect, float near = 0.1, float far = 100);
+			void setFov(float fov);
 			void setAspect(float aspect);
 
 			void moveForward(float distance);

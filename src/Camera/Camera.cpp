@@ -68,6 +68,8 @@ namespace XGL
 
 	void Camera::setEuler(float yaw, float pitch, float roll)
 	{
+		if (pitch > PI / 2 || pitch < -PI / 2)
+			std::cerr << "WARNING | XGL::Camera::setEuler(float, float, float) : Value out of bounds.\n";
 		target_yaw = yaw;
 		pitch = pitch > PI / 2 ? PI / 2 : pitch < -PI / 2 ? -PI / 2 : pitch;
 		target_pitch = pitch;
@@ -75,14 +77,30 @@ namespace XGL
 	}
 	void Camera::setLen(float fov, float aspect, float near, float far)
 	{
+		if (fov > 2 * PI / 3 || fov < PI / 18)
+			std::cerr << "WARNING | XGL::Camera::setLen(float, float, float, float) : Value out of bounds.\n";
+		fov = fov > 2 * PI / 3 ? 2 * PI / 3 : fov < PI / 18 ? PI / 18 : fov;
 		target_fov = fov;
 		this->aspect = aspect;
 		this->near = near;
 		this->far = far;
 	}
 
+	void Camera::setFov(float fov)
+	{
+		if (fov > 2 * PI / 3 || fov < PI / 18)
+			std::cerr << "WARNING | XGL::Camera::setFov(float) : Value out of bounds.\n";
+		fov = fov > 2 * PI / 3 ? 2 * PI / 3 : fov < PI / 18 ? PI / 18 : fov;
+		target_fov = fov;
+	}
+
 	void Camera::setAspect(float aspect)
 	{
+		if (aspect <= 0)
+		{
+			std::cerr << "ERROR | XGL::Camera::setAspect(float) : Invalid set value.\n";
+			throw INVALID_SET_VALUE;
+		}
 		this->aspect = aspect;
 	}
 

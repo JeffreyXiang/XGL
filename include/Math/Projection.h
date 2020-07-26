@@ -6,7 +6,7 @@
 
 namespace XGL
 {
-	static class Projection
+	class Projection
 	{
 		public:
 			enum ERROR { INVALID_SIZE };
