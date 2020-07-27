@@ -74,22 +74,24 @@ namespace XGL
 	class Program
 	{
 		public:
-			enum ERROR { NO_SUCH_UNIFORM, LINK_FAIL };
+			enum ERROR { NO_SUCH_UNIFORM, LINK_FAIL, NO_CAMERA };
 
 		private:
 			unsigned int handle;
+			Camera* camera;
 
 			bool linkOutput();
 
 		public:
-			Program() : handle(glCreateProgram()) {}
+			Program() : handle(glCreateProgram()), camera(NULL) {}
 			~Program() { glDeleteProgram(handle); }
 
+			void setCamera(Camera& camera) { this->camera = &camera; }
+			void updateCamera(float deltaT);
 			template<ShaderType type>
 			void attachShader(Shader<type>& shader);
 			void link();
 			void use();
-			void setCamera(Camera& camera);
 			void draw(Object& object);
 
 			unsigned int getHandle() { return handle; }

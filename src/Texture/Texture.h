@@ -10,7 +10,7 @@ namespace XGL
 	class Texture
 	{
 		public:
-			enum ERROR { FILE_OPEN_FAIL, NO_IMAGE_DATA };
+			enum ERROR { FILE_OPEN_FAIL, NO_IMAGE_DATA, NOT_GENERATED };
 			enum WrappingPolicy { REPEAT, MIRRORED_REPEAT, CLAMP_TO_EDGE, CLAMP_TO_BORDER };
 			enum SamplingPolicy { NEAREST, LINEAR };
 

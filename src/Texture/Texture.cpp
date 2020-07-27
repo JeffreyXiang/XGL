@@ -162,6 +162,11 @@ namespace XGL
 
 	void Texture::bind(unsigned int texUnit)
 	{
+		if (!handle)
+		{
+			std::cerr << "ERROR | XGL::Texture::bind(unsigned int) : Not generated.\n";
+			throw NOT_GENERATED;
+		}
 		glActiveTexture(GL_TEXTURE0 + texUnit);
 		glBindTexture(GL_TEXTURE_2D, handle);
 	}

@@ -94,6 +94,16 @@ namespace XGL
         return success;
     }
 
+	void Program::updateCamera(float deltaT)
+	{
+		if (!camera)
+		{
+			std::cerr << "ERROR | XGL::Program::updateCamera(float) : Camera not set.\n";
+			throw NO_CAMERA;
+		}
+		camera->update(deltaT);
+	}
+
     void Program::link()
     {
         glLinkProgram(handle);
@@ -105,21 +115,19 @@ namespace XGL
         glUseProgram(handle);
     }
 
-	void Program::setCamera(Camera& camera)
-	{
-		uniform<Mat4>("view") = camera.viewMat();
-		uniform<Mat4>("projection") = camera.projectionMat();
-	}
-
 	void Program::draw(Object& object)
 	{
+		uniform<Mat4>("view") = camera->viewMat();
+		uniform<Mat4>("projection") = camera->projectionMat();
+		uniform<Mat4>("model") = object.modelMat();
+
 		std::vector<Object::textureInfo> textures = object.getTextures();
 		for (size_t i = 0; i < textures.size(); i++)
 		{
 			textures[i].texture->bind(textures[i].unit);
 			uniform<int>(textures[i].name) = textures[i].unit;
 		}
-		uniform<Mat4>("model") = object.modelMat();
+
 		Buffer* buffer = object.genBuffer();
 		use();
 		buffer->bind();
