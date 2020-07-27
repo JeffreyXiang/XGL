@@ -27,7 +27,7 @@ float lastFrame = 0.0f;
 
 //------- camera -------
 Camera camera;
-float cameraSpeed = 5;
+float cameraSpeed = 2;
 
 //------- cursor -------
 float lastX = 400, lastY = 300;
@@ -91,6 +91,7 @@ void processInput(GLFWwindow* window)
 
 int main()
 {
+    // ------- Init -------
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -114,67 +115,65 @@ int main()
     }
 
     glViewport(0, 0, screenWidth, screenHeight);
+    glEnable(GL_DEPTH_TEST);
+
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    camera.setPosition(Vec3(0, 0, 3));
-    camera.smoothRotate(0.1);
-    camera.smoothZoom(0.1);
-
     //------- data --------
     std::vector<Vec3> modelPositions = {
-        { 0.5f,  0.5f,  0.5f },
-        { 0.5f, -0.5f,  0.5f },
-        {-0.5f, -0.5f,  0.5f },
-        {-0.5f,  0.5f,  0.5f },
-        {-0.5f,  0.5f, -0.5f },
-        {-0.5f, -0.5f, -0.5f },
-        { 0.5f, -0.5f, -0.5f },
-        { 0.5f,  0.5f, -0.5f },
-        {-0.5f,  0.5f,  0.5f },
-        {-0.5f, -0.5f,  0.5f },
-        {-0.5f, -0.5f, -0.5f },
-        {-0.5f,  0.5f, -0.5f },
-        { 0.5f,  0.5f, -0.5f },
-        { 0.5f, -0.5f, -0.5f },
-        { 0.5f, -0.5f,  0.5f },
-        { 0.5f,  0.5f,  0.5f },
-        { 0.5f,  0.5f, -0.5f },
-        { 0.5f,  0.5f,  0.5f },
-        {-0.5f,  0.5f,  0.5f },
-        {-0.5f,  0.5f, -0.5f },
-        { 0.5f, -0.5f, -0.5f },
-        { 0.5f, -0.5f,  0.5f },
-        {-0.5f, -0.5f,  0.5f },
-        {-0.5f, -0.5f, -0.5f }
+        Vec3( 0.5f,  0.5f,  0.5f),
+        Vec3( 0.5f, -0.5f,  0.5f),
+        Vec3(-0.5f, -0.5f,  0.5f),
+        Vec3(-0.5f,  0.5f,  0.5f),
+        Vec3(-0.5f,  0.5f, -0.5f),
+        Vec3(-0.5f, -0.5f, -0.5f),
+        Vec3( 0.5f, -0.5f, -0.5f),
+        Vec3( 0.5f,  0.5f, -0.5f),
+        Vec3(-0.5f,  0.5f,  0.5f),
+        Vec3(-0.5f, -0.5f,  0.5f),
+        Vec3(-0.5f, -0.5f, -0.5f),
+        Vec3(-0.5f,  0.5f, -0.5f),
+        Vec3( 0.5f,  0.5f, -0.5f),
+        Vec3( 0.5f, -0.5f, -0.5f),
+        Vec3( 0.5f, -0.5f,  0.5f),
+        Vec3( 0.5f,  0.5f,  0.5f),
+        Vec3( 0.5f,  0.5f, -0.5f),
+        Vec3( 0.5f,  0.5f,  0.5f),
+        Vec3(-0.5f,  0.5f,  0.5f),
+        Vec3(-0.5f,  0.5f, -0.5f),
+        Vec3( 0.5f, -0.5f, -0.5f),
+        Vec3( 0.5f, -0.5f,  0.5f),
+        Vec3(-0.5f, -0.5f,  0.5f),
+        Vec3(-0.5f, -0.5f, -0.5f)
     };
 
     std::vector<Vec2> modelTexcoords = {
-        { 1.0f, 1.0f },
-        { 1.0f, 0.0f },
-        { 0.0f, 0.0f },
-        { 0.0f, 1.0f },
-        { 1.0f, 1.0f },
-        { 1.0f, 0.0f },
-        { 0.0f, 0.0f },
-        { 0.0f, 1.0f },
-        { 1.0f, 1.0f },
-        { 1.0f, 0.0f },
-        { 0.0f, 0.0f },
-        { 0.0f, 1.0f },
-        { 1.0f, 1.0f },
-        { 1.0f, 0.0f },
-        { 0.0f, 0.0f },
-        { 0.0f, 1.0f },
-        { 1.0f, 1.0f },
-        { 1.0f, 0.0f },
-        { 0.0f, 0.0f },
-        { 0.0f, 1.0f },
-        { 1.0f, 1.0f },
-        { 1.0f, 0.0f },
-        { 0.0f, 0.0f },
-        { 0.0f, 1.0f }
+        Vec2(1.0f, 1.0f),
+        Vec2(1.0f, 0.0f),
+        Vec2(0.0f, 0.0f),
+        Vec2(0.0f, 1.0f),
+        Vec2(1.0f, 1.0f),
+        Vec2(1.0f, 0.0f),
+        Vec2(0.0f, 0.0f),
+        Vec2(0.0f, 1.0f),
+        Vec2(1.0f, 1.0f),
+        Vec2(1.0f, 0.0f),
+        Vec2(0.0f, 0.0f),
+        Vec2(0.0f, 1.0f),
+        Vec2(1.0f, 1.0f),
+        Vec2(1.0f, 0.0f),
+        Vec2(0.0f, 0.0f),
+        Vec2(0.0f, 1.0f),
+        Vec2(1.0f, 1.0f),
+        Vec2(1.0f, 0.0f),
+        Vec2(0.0f, 0.0f),
+        Vec2(0.0f, 1.0f),
+        Vec2(1.0f, 1.0f),
+        Vec2(1.0f, 0.0f),
+        Vec2(0.0f, 0.0f),
+        Vec2(0.0f, 1.0f)
     };
 
     std::vector<unsigned int> modelIndices = {
@@ -205,18 +204,22 @@ int main()
         Vec3(-1.3f,  1.0f, -1.5f)
     };
 
-    //creat vert buffer
+    //setup camera
+    camera.setPosition(Vec3(0, 0, 3));
+    camera.smoothRotate(0.1);
+    camera.smoothZoom(0.1);
+
+    //creat object
     Object object;
     object.setModelPositions(modelPositions);
     object.setModelTexcoords(modelTexcoords);
     object.setModelIndices(modelIndices);
-    Buffer* buffer = object.genBuffer();
 
     //load texture
     Texture texture1("../data/container.jpg");
     Texture texture2("../data/awesomeface.png");
-    texture1.bind(0);
-    texture2.bind(1);
+    object.addTexture(texture1, "texture0", 0);
+    object.addTexture(texture2, "texture1", 1);
 
     //load glsl programs
     Shader<ShaderType::VERTEX> vertexShader("../src/Test/shaders/shader.vert");
@@ -231,12 +234,6 @@ int main()
     program.attachShader(vertexShader);
     program.attachShader(fragmentShader);
     program.link();
-    int shaderProgram = program.getHandle();
-
-    program.uniform<int>("texture0") = texture1.getTextureUnit();
-    program.uniform<int>("texture1") = texture2.getTextureUnit();
-
-    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -256,6 +253,7 @@ int main()
         {
             object.setPosition(positions[i]);
             object.setRotation(i, Vec3(1, 0.5, 0.3));
+            object.setScaling(1);
             program.draw(object);
         }
 

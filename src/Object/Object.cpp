@@ -200,6 +200,45 @@ namespace XGL
 		return model;
 	}
 
+	void Object::addTexture(Texture& tex, const char* name, unsigned int unit)
+	{ 
+		if (!tex.isGenerated())
+			tex.generate();
+		textures.push_back({ &tex, name, unit });
+	}
+
+	void Object::addTexture(Texture& tex, const char* name)
+	{
+		unsigned int unit;
+
+		if (textures.size() == 0)
+			unit = 0;
+		else
+		{
+			unsigned int* list = new unsigned int[textures.size()];
+			for (size_t i = 0; i < textures.size(); i++)
+				list[i] = textures[i].unit;
+
+			size_t i = textures.size(), t, temp;
+
+			while ((--i) >= 0) {
+				while (0 <= list[i] && list[i] < textures.size() && i != list[i]) {
+					t = list[i];
+					if (list[i] == list[t]) break;
+					temp = list[i];
+					list[i] = list[t];
+					list[t] = temp;
+				}
+			}
+
+			i = 0;
+			for (; i < textures.size(); ++i)
+				if (list[i] != i) break;
+			unit = i;
+		}
+		addTexture(tex, name, unit);
+	}
+
 	Buffer* Object::genBuffer()
 	{
 		if ((modelData.normals.size() && modelData.normals.size() != modelData.positions.size()) ||

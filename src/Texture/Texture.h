@@ -23,7 +23,6 @@ namespace XGL
 
 			// --- GL info ---
 			unsigned int handle;
-			unsigned int textureUnit;
 
 			// --- property ---
 			bool mipmapEnabled;
@@ -47,7 +46,6 @@ namespace XGL
 			int getWidth() { return width; }
 			int getHeight() { return height; }
 			unsigned int getHandle() { return handle; }
-			unsigned int getTextureUnit() { return textureUnit; }
 
 			void load(const char* filename);
 			void setMipmapEnabled(bool isEnabled);
@@ -57,6 +55,9 @@ namespace XGL
 			void setSamplingPolicy(SamplingPolicy policy);
 			void setMipmapSamplingPolicy(SamplingPolicy policy);
 			void setBorderColor(Vec4 color);
+
+			bool isGenerated() { return handle; }
+			void generate();
 			void bind(unsigned int texUnit);
 	};
 }

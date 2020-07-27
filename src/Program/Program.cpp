@@ -113,6 +113,12 @@ namespace XGL
 
 	void Program::draw(Object& object)
 	{
+		std::vector<Object::textureInfo> textures = object.getTextures();
+		for (size_t i = 0; i < textures.size(); i++)
+		{
+			textures[i].texture->bind(textures[i].unit);
+			uniform<int>(textures[i].name) = textures[i].unit;
+		}
 		uniform<Mat4>("model") = object.modelMat();
 		Buffer* buffer = object.genBuffer();
 		use();

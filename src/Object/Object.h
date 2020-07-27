@@ -4,6 +4,7 @@
 #include <Math/Vector.h>
 #include <Math/Matrix.h>
 #include <Math/Transform.h>
+#include <Texture.h>
 #include <glad/glad.h>
 
 #include <vector>
@@ -66,6 +67,13 @@ namespace XGL
 		public:
 			enum ERROR { MODEL_DATA_MISMATCH };
 
+			typedef struct
+			{
+				Texture* texture;
+				const char* name;
+				unsigned int unit;
+			} textureInfo;
+
 		private:
 			// --- model data ---
 			struct
@@ -75,6 +83,9 @@ namespace XGL
 				std::vector<Vec2> texcoords;
 				std::vector<unsigned int> indices;
 			} modelData;
+
+			// --- texture ---
+			std::vector<textureInfo> textures;
 
 			// --- world data ---
 			Vec3 position;
@@ -101,9 +112,14 @@ namespace XGL
 			void setPosition(Vec3 position) { this->position = position; }
 			void setRotation(float angle, Vec3 axis) { rotateMat = Transform::rotate(angle, axis); }
 			void setScaling(float x, float y, float z) { scaleX = x; scaleY = y; scaleZ = z; }
+			void setScaling(float f) { scaleX = f; scaleY = f; scaleZ = f; }
 			Mat4& modelMat();
 
+			void addTexture(Texture& tex, const char* name, unsigned int unit);
+			void addTexture(Texture& tex, const char* name);
+
 			size_t getVertexNum() { return modelData.indices.size(); }
+			std::vector<textureInfo>& getTextures() { return textures; }
 
 			Buffer* genBuffer();
 	};

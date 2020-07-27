@@ -54,19 +54,20 @@ namespace XGL
 		borderColor = color;
 	}
 
-	void Texture::bind(unsigned int texUnit)
+	void Texture::generate()
 	{
 		if (!data)
 		{
-			std::cerr << "ERROR | XGL::Texture::bind(int) : No image data.\n";
+			std::cerr << "ERROR | XGL::Texture::generate() : No image data.\n";
 			throw NO_IMAGE_DATA;
 		}
-		textureUnit = texUnit;
-		if (!handle)
-			glGenTextures(1, &handle);
-		glActiveTexture(GL_TEXTURE0 + textureUnit);
+
+		if (handle)
+			glDeleteTextures(1, &handle);
+
+		glGenTextures(1, &handle);
 		glBindTexture(GL_TEXTURE_2D, handle);
-		
+
 		switch (wrappingX)
 		{
 			case REPEAT:
@@ -90,7 +91,7 @@ namespace XGL
 			case CLAMP_TO_BORDER:
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER); break;
 		}
-		
+
 		if (!mipmapEnabled)
 		{
 			switch (sampingMin)
@@ -155,5 +156,13 @@ namespace XGL
 
 		if (mipmapEnabled)
 			glGenerateMipmap(GL_TEXTURE_2D);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	void Texture::bind(unsigned int texUnit)
+	{
+		glActiveTexture(GL_TEXTURE0 + texUnit);
+		glBindTexture(GL_TEXTURE_2D, handle);
 	}
 }
