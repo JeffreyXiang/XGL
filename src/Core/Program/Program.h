@@ -4,8 +4,8 @@
 #include <glad/glad.h>
 #include <Math/Vector.h>
 #include <Math/Matrix.h>
-#include <Object.h>
-#include <Camera.h>
+#include "Object/Object.h"
+#include "Camera/Camera.h"
 
 namespace XGL
 {

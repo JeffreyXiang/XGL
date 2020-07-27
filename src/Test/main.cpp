@@ -4,10 +4,10 @@
 #include <Math/View.h>
 #include <Math/Projection.h>
 #include <Math/Tool.h>
-#include <Camera.h>
-#include <Texture.h>
-#include <Program.h>
-#include <Object.h>
+#include <Camera/Camera.h>
+#include <Texture/Texture.h>
+#include <Program/Program.h>
+#include <Object/Object.h>
 #include <stb_image.h>
 #include <iostream>
 #include <fstream>

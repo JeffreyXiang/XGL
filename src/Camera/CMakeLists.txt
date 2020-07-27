@@ -1,1 +1,0 @@
-Xi_addTarget(MODE STATIC LIBS)

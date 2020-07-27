@@ -4,7 +4,7 @@
 #include <Math/Vector.h>
 #include <Math/Matrix.h>
 #include <Math/Transform.h>
-#include <Texture.h>
+#include "Texture/Texture.h"
 #include <glad/glad.h>
 
 #include <vector>
